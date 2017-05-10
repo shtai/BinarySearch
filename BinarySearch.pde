@@ -43,13 +43,14 @@ public int binarySearch(int catNumToFind)
 {
   int high=store.length-1;
   int low =0;
+  int mid;
   while (low<=high)
   {
-    int mid =(high+low)/2;
-    if (store[mid].getCatNum()>catNumToFind)
-      low = mid+1;
-    else if (store[mid].getCatNum()<catNumToFind)
-      high = mid-1;
+    mid =(high+low)/2;
+    if (catNumToFind>store[mid].getCatNum())
+      low=mid+1;
+    else if (catNumToFind<store[mid].getCatNum())
+      high=mid-1;
     else
       return store[mid].getInventory();
   }
@@ -57,8 +58,15 @@ public int binarySearch(int catNumToFind)
 }
 public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
 {
-  //complete this method    
-  return -1;
+  int mid=(nLow+nHigh)/2;
+  if (nLow>nHigh)
+    return -1;
+  else if (catNumToFind<store[mid].getCatNum())
+    return recursiveBinarySearch(catNumToFind, nLow, mid-1);
+  else if (catNumToFind>store[mid].getCatNum())
+    return recursiveBinarySearch(catNumToFind, mid+1, nHigh);    
+  else
+    return store[mid].getInventory();
 }
 public void setup()
 {
